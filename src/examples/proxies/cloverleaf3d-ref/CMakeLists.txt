@@ -88,8 +88,11 @@ if(MPI_FOUND AND FORTRAN_FOUND)
     blt_append_custom_compiler_flag(
             FLAGS_VAR clover_link_flags
             INTEL   "-nofor_main"
-            INTELLLVM   "-nofor-main"
         )
+
+    if(C_COMPILER_FAMILY_IS_INTELLLVM)
+        list(APPEND clover_link_flags "-nofor-main")
+    endif()
 
     # these flags are needeed for gfortran 10 to avoid
     # compile errors with the mpi interface
